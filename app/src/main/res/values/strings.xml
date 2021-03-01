@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MyMoviesFinal</string>
+    <string name="my_movies">Movies App</string>
+    <string name="movies">Movies</string>
+    <string name="tvshows">TV Show</string>
+    <string name="rating">Rating</string>
+    <string name="title">Title</string>
+    <string name="title_activity_detail_movie">DetailMovieActivity</string>
+    <string name="genre">genres</string>
+    <string name="release">Release</string>
+    <string name="duration">Duration</string>
+    <string name="description_title">Description</string>
+    <string name="tagline">Tagline</string>
+    <string name="quote">quote</string>
+    <string name="title_activity_detail_tv_show">DetailTvShowActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>
