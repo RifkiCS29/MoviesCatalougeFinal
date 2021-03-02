@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_movies">
+
+    <fragment
+        android:id="@+id/navigation_movies"
+        android:name="com.rifki.jetpackpro.mymoviesfinal.ui.movie.MovieFragment"
+        android:label="@string/movies"
+        tools:layout="@layout/fragment_movie" />
+
+    <fragment
+        android:id="@+id/navigation_tvShow"
+        android:name="com.rifki.jetpackpro.mymoviesfinal.ui.tvshow.TvShowFragment"
+        android:label="@string/tvshows"
+        tools:layout="@layout/fragment_tv_show" />
+
+    <fragment
+        android:id="@+id/navigation_favorites"
+        android:name="com.rifki.jetpackpro.mymoviesfinal.ui.favorite.FavoriteFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/fragment_favorite"/>
+
+</navigation>

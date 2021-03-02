@@ -1,4 +1,4 @@
-package com.rifki.jetpackpro.mymoviesfinal.data.source
+package com.rifki.jetpackpro.mymoviesfinal.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

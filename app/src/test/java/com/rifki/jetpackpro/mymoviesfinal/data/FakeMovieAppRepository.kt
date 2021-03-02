@@ -2,7 +2,6 @@ package com.rifki.jetpackpro.mymoviesfinal.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.rifki.jetpackpro.mymoviesfinal.data.source.MovieAppDataSource
 import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.DetailMovieEntity
 import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.DetailTvShowEntity
 import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.MovieEntity

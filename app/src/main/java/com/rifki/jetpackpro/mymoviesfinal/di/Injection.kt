@@ -1,7 +1,7 @@
 package com.rifki.jetpackpro.mymoviesfinal.di
 
 import android.content.Context
-import com.rifki.jetpackpro.mymoviesfinal.data.source.MovieAppRepository
+import com.rifki.jetpackpro.mymoviesfinal.data.MovieAppRepository
 import com.rifki.jetpackpro.mymoviesfinal.data.source.remote.RemoteDataSource
 
 object Injection {

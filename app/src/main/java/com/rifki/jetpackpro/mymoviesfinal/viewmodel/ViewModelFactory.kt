@@ -3,7 +3,7 @@ package com.rifki.jetpackpro.mymoviesfinal.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.rifki.jetpackpro.mymoviesfinal.data.source.MovieAppRepository
+import com.rifki.jetpackpro.mymoviesfinal.data.MovieAppRepository
 import com.rifki.jetpackpro.mymoviesfinal.di.Injection
 import com.rifki.jetpackpro.mymoviesfinal.ui.detail.movie.DetailMovieViewModel
 import com.rifki.jetpackpro.mymoviesfinal.ui.detail.tvshow.DetailTvShowViewModel

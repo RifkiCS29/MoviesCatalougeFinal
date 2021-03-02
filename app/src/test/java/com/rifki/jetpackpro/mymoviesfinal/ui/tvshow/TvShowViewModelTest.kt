@@ -3,7 +3,7 @@ package com.rifki.jetpackpro.mymoviesfinal.ui.tvshow
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.rifki.jetpackpro.mymoviesfinal.data.source.MovieAppRepository
+import com.rifki.jetpackpro.mymoviesfinal.data.MovieAppRepository
 import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.TvShowEntity
 import com.rifki.jetpackpro.mymoviesfinal.utils.DataDummy
 import org.junit.Test
