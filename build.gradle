@@ -46,4 +46,8 @@ ext {
     picassoVersion = '2.71828'
 
     archLifecycleVersion = '2.3.0'
+
+    roomVersion = '2.2.3'
+    roomRuntimeVersion = '2.2.6'
+    pagingVersion = '2.1.1'
 }
