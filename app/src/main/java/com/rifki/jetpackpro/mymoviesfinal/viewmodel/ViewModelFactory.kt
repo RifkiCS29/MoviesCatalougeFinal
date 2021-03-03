@@ -39,6 +39,5 @@ class ViewModelFactory private constructor(private val movieAppRepository: Movie
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
-
     }
 }

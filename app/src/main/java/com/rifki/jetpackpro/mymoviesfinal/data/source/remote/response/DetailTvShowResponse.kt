@@ -32,13 +32,6 @@ data class DetailTvShowResponse(
 	val tagline: String? = ""
 )
 
-data class GenresItem(
 
-	@field:SerializedName("name")
-	val name: String,
-
-	@field:SerializedName("id")
-	val id: Int
-)
 
 

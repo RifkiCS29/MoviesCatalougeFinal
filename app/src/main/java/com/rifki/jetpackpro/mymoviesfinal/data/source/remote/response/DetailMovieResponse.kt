@@ -35,13 +35,5 @@ data class DetailMovieResponse(
 	val tagline: String? = "",
 )
 
-data class GenresMovieItem(
-
-	@field:SerializedName("name")
-	val name: String,
-
-	@field:SerializedName("id")
-	val id: Int
-)
 
 

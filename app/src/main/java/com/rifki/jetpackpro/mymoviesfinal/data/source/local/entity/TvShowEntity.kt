@@ -14,22 +14,22 @@ data class TvShowEntity (
     var id: String,
 
     @ColumnInfo(name = "posterPath")
-    var posterPath: String,
+    var posterPath: String? = "",
 
-    @ColumnInfo(name = "title")
-    var title: String,
+    @ColumnInfo(name = "name")
+    var name: String? = "",
 
     @ColumnInfo(name = "backdropPath")
-    var backdropPath: String,
+    var backdropPath: String? = "",
 
     @ColumnInfo(name = "genres")
-    var genres: String,
+    var genres: String? = "",
 
     @ColumnInfo(name = "overview")
-    var overview: String,
+    var overview: String? = "",
 
     @ColumnInfo(name = "firstAirDate")
-    var firstAirDate: String,
+    var firstAirDate: String? = "",
 
     @ColumnInfo(name = "voteAverage")
     var voteAverage: Double,

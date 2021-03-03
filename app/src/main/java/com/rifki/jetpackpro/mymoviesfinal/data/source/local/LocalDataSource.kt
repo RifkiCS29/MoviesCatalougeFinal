@@ -59,5 +59,4 @@ class LocalDataSource(private val mMovieAppDao: MovieAppDao) {
         tvShow.isFavorite = newState
         mMovieAppDao.updateTvShow(tvShow)
     }
-
 }

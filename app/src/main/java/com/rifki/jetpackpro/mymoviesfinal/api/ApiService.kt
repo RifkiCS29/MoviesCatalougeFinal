@@ -1,9 +1,6 @@
 package com.rifki.jetpackpro.mymoviesfinal.api
 
-import com.rifki.jetpackpro.mymoviesfinal.data.source.remote.response.DetailMovieResponse
-import com.rifki.jetpackpro.mymoviesfinal.data.source.remote.response.DetailTvShowResponse
-import com.rifki.jetpackpro.mymoviesfinal.data.source.remote.response.MovieResponse
-import com.rifki.jetpackpro.mymoviesfinal.data.source.remote.response.TvShowResponse
+import com.rifki.jetpackpro.mymoviesfinal.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -25,11 +22,11 @@ interface ApiService {
     fun getDetailMovie(
         @Path("movie_id") movieId: String,
         @Query("api_key") apiKey: String
-    ): Call<DetailMovieResponse>
+    ): Call<ResultsMovieItem>
 
     @GET("tv/{tvShow_id}")
     fun getDetailTvShow(
         @Path("tvShow_id") tvShowId: String,
         @Query("api_key") apiKey: String
-    ): Call<DetailTvShowResponse>
+    ): Call<ResultsTvShowItem>
 }
