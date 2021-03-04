@@ -9,5 +9,6 @@ import com.rifki.jetpackpro.mymoviesfinal.vo.Resource
 
 class MovieViewModel(private val movieAppRepository: MovieAppRepository): ViewModel() {
 
-    fun getMovies(sort: String): LiveData<Resource<PagedList<MovieEntity>>> = movieAppRepository.getMovies(sort)
+    fun getMovies(sort: String): LiveData<Resource<PagedList<MovieEntity>>> =
+            movieAppRepository.getMovies(sort)
 }

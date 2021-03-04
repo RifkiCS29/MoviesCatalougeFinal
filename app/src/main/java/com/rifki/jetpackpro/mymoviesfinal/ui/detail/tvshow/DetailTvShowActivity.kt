@@ -2,15 +2,17 @@ package com.rifki.jetpackpro.mymoviesfinal.ui.detail.tvshow
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.rifki.jetpackpro.mymoviesfinal.BuildConfig
 import com.rifki.jetpackpro.mymoviesfinal.R
-import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.DetailTvShowEntity
+import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.TvShowEntity
 import com.rifki.jetpackpro.mymoviesfinal.databinding.ActivityDetailTvShowBinding
 import com.rifki.jetpackpro.mymoviesfinal.databinding.ContentDetailTvShowBinding
 import com.rifki.jetpackpro.mymoviesfinal.utils.Convert
 import com.rifki.jetpackpro.mymoviesfinal.viewmodel.ViewModelFactory
+import com.rifki.jetpackpro.mymoviesfinal.vo.Status
 import com.squareup.picasso.Picasso
 
 class DetailTvShowActivity : AppCompatActivity() {
@@ -43,24 +45,37 @@ class DetailTvShowActivity : AppCompatActivity() {
                 activityDetailTvShowBinding.contentTvShow.visibility = View.INVISIBLE
                 viewModel.setSelectedTvShow(tvShowId)
                 viewModel.getTvShow().observe(this, { tvShow ->
-                    activityDetailTvShowBinding.progressBar.visibility = View.GONE
-                    activityDetailTvShowBinding.contentTvShow.visibility = View.VISIBLE
-                    populateTvShow(tvShow)
+                    when (tvShow.status) {
+                        Status.LOADING -> {
+                            activityDetailTvShowBinding.progressBar.visibility = View.VISIBLE
+                            activityDetailTvShowBinding.contentTvShow.visibility = View.INVISIBLE
+                        }
+                        Status.SUCCESS -> if (tvShow.data != null) {
+                            activityDetailTvShowBinding.progressBar.visibility = View.GONE
+                            activityDetailTvShowBinding.contentTvShow.visibility = View.VISIBLE
+                            populateTvShow(tvShow.data)
+                        }
+                        Status.ERROR -> {
+                            activityDetailTvShowBinding.progressBar.visibility = View.INVISIBLE
+                            activityDetailTvShowBinding.contentTvShow.visibility = View.INVISIBLE
+                            Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 })
             }
         }
     }
 
-    private fun populateTvShow(tvShow: DetailTvShowEntity) {
+    private fun populateTvShow(tvShow: TvShowEntity) {
         with(contentDetailTvShowBinding){
             tvName.text = tvShow.name
             tvName.isSelected = true
             tvName.isSingleLine = true
             tvDescription.text = tvShow.overview
-            tvGenre.text = tvShow.genres.joinToString()
+            tvGenre.text = tvShow.genres
             tvGenre.isSelected = true
             tvGenre.isSingleLine = true
-            tvRelease.text = Convert.convertStringToDate(tvShow.firstAirDate)
+            tvRelease.text = tvShow.firstAirDate?.let { Convert.convertStringToDate(it) }
             tvRating.text = tvShow.voteAverage.toString()
             if (tvShow.tagline.isNullOrEmpty()) {
                 tvTaglineTitle.visibility = View.GONE

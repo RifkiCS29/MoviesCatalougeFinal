@@ -9,5 +9,6 @@ import com.rifki.jetpackpro.mymoviesfinal.vo.Resource
 
 class TvShowViewModel(private val movieAppRepository: MovieAppRepository): ViewModel() {
 
-    fun getTvShows(sort: String): LiveData<Resource<PagedList<TvShowEntity>>> = movieAppRepository.getTvShows(sort)
+    fun getTvShows(sort: String): LiveData<Resource<PagedList<TvShowEntity>>> =
+            movieAppRepository.getTvShows(sort)
 }

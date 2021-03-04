@@ -34,8 +34,8 @@ class MovieAppRepository private constructor(
             override fun loadFromDB(): LiveData<PagedList<MovieEntity>> {
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(4)
-                    .setPageSize(4)
+                    .setInitialLoadSizeHint(10)
+                    .setPageSize(10)
                     .build()
                 return LivePagedListBuilder(localDataSource.getMovies(sort), config).build()
             }
@@ -69,8 +69,8 @@ class MovieAppRepository private constructor(
             override fun loadFromDB(): LiveData<PagedList<TvShowEntity>> {
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(4)
-                    .setPageSize(4)
+                    .setInitialLoadSizeHint(10)
+                    .setPageSize(10)
                     .build()
                 return LivePagedListBuilder(localDataSource.getTvShows(sort), config).build()
             }
@@ -174,8 +174,8 @@ class MovieAppRepository private constructor(
     override fun getFavoriteMovies(): LiveData<PagedList<MovieEntity>> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(4)
-            .setPageSize(4)
+            .setInitialLoadSizeHint(10)
+            .setPageSize(10)
             .build()
         return LivePagedListBuilder(localDataSource.getFavoriteMovies(), config).build()
     }
@@ -183,8 +183,8 @@ class MovieAppRepository private constructor(
     override fun getFavoriteTvShows(): LiveData<PagedList<TvShowEntity>> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(4)
-            .setPageSize(4)
+            .setInitialLoadSizeHint(10)
+            .setPageSize(10)
             .build()
         return LivePagedListBuilder(localDataSource.getFavoriteTvShows(), config).build()
     }

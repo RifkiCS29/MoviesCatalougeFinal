@@ -3,7 +3,8 @@ package com.rifki.jetpackpro.mymoviesfinal.ui.detail.movie
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.rifki.jetpackpro.mymoviesfinal.data.MovieAppRepository
-import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.DetailMovieEntity
+import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.MovieEntity
+import com.rifki.jetpackpro.mymoviesfinal.vo.Resource
 
 class DetailMovieViewModel(private val movieAppRepository: MovieAppRepository): ViewModel() {
     private lateinit var movieId: String
@@ -12,5 +13,5 @@ class DetailMovieViewModel(private val movieAppRepository: MovieAppRepository): 
         this.movieId = movieId
     }
 
-    fun getMovie(): LiveData<DetailMovieEntity> = movieAppRepository.getDetailMovie(movieId)
+    fun getMovie(): LiveData<Resource<MovieEntity>> = movieAppRepository.getDetailMovie(movieId)
 }

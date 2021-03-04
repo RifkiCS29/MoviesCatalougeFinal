@@ -6,17 +6,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
+import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.MovieEntity
 import com.rifki.jetpackpro.mymoviesfinal.databinding.FragmentMovieBinding
 import com.rifki.jetpackpro.mymoviesfinal.ui.detail.movie.DetailMovieActivity
+import com.rifki.jetpackpro.mymoviesfinal.utils.SortUtils.BEST_RATING
 import com.rifki.jetpackpro.mymoviesfinal.viewmodel.ViewModelFactory
+import com.rifki.jetpackpro.mymoviesfinal.vo.Resource
+import com.rifki.jetpackpro.mymoviesfinal.vo.Status
 
 class MovieFragment : Fragment() {
 
     private var _fragmentMovieBinding: FragmentMovieBinding? = null
     private val binding get() = _fragmentMovieBinding
     private lateinit var movieAdapter: MovieAdapter
+    private lateinit var viewModel: MovieViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _fragmentMovieBinding = FragmentMovieBinding.inflate(inflater, container, false)
@@ -29,19 +37,30 @@ class MovieFragment : Fragment() {
         if (activity != null) {
 
             val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
+            viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
             movieAdapter = MovieAdapter()
 
             showLoading(true)
-            viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
-                showLoading(false)
-                movieAdapter.setMovies(movies)
-                movieAdapter.notifyDataSetChanged()
-
-            })
+            viewModel.getMovies(BEST_RATING).observe(viewLifecycleOwner, movieObserver)
 
             showRecyclerView()
+        }
+    }
+
+    private val movieObserver = Observer<Resource<PagedList<MovieEntity>>> { listMovies ->
+        if (listMovies != null) {
+            when (listMovies.status) {
+                Status.LOADING -> showLoading(true)
+                Status.SUCCESS -> {
+                    showLoading(false)
+                    movieAdapter.submitList(listMovies.data)
+                }
+                Status.ERROR -> {
+                    showLoading(false)
+                    Toast.makeText(context, "Failed to get Data", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
