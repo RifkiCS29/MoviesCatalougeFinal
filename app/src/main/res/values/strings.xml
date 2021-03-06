@@ -24,4 +24,8 @@
     <string name="menu_favorite">Favorite</string>
     <string name="fav_mov">Favorite Movies</string>
     <string name="fav_tv">Favorite TV Show</string>
+    <string name="best_rating">Best Rating</string>
+    <string name="worst_rating">Worst Rating</string>
+    <string name="random_rating">Random</string>
+    <string name="sort_default">Default</string>
 </resources>

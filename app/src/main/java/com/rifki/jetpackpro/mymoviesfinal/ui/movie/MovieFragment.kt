@@ -2,19 +2,20 @@ package com.rifki.jetpackpro.mymoviesfinal.ui.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
+import com.rifki.jetpackpro.mymoviesfinal.R
 import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.MovieEntity
 import com.rifki.jetpackpro.mymoviesfinal.databinding.FragmentMovieBinding
 import com.rifki.jetpackpro.mymoviesfinal.ui.detail.movie.DetailMovieActivity
 import com.rifki.jetpackpro.mymoviesfinal.utils.SortUtils.BEST_RATING
+import com.rifki.jetpackpro.mymoviesfinal.utils.SortUtils.DEFAULT
+import com.rifki.jetpackpro.mymoviesfinal.utils.SortUtils.WORST_RATING
 import com.rifki.jetpackpro.mymoviesfinal.viewmodel.ViewModelFactory
 import com.rifki.jetpackpro.mymoviesfinal.vo.Resource
 import com.rifki.jetpackpro.mymoviesfinal.vo.Status
@@ -33,6 +34,7 @@ class MovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         if (activity != null) {
 
@@ -42,7 +44,7 @@ class MovieFragment : Fragment() {
             movieAdapter = MovieAdapter()
 
             showLoading(true)
-            viewModel.getMovies(BEST_RATING).observe(viewLifecycleOwner, movieObserver)
+            viewModel.getMovies(DEFAULT).observe(viewLifecycleOwner, movieObserver)
 
             showRecyclerView()
         }
@@ -89,6 +91,24 @@ class MovieFragment : Fragment() {
         } else {
             binding?.progressBar?.visibility = View.GONE
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.sorting_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var sort = ""
+        when(item.itemId) {
+            R.id.action_default -> sort = DEFAULT
+            R.id.action_best -> sort = BEST_RATING
+            R.id.action_worst -> sort = WORST_RATING
+        }
+        viewModel.getMovies(sort).observe(this, movieObserver)
+        item.isChecked = true
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {
