@@ -1,4 +1,4 @@
-package com.rifki.jetpackpro.mymoviesfinal.ui.home
+package com.rifki.jetpackpro.mymoviesfinal.ui.favorite
 
 import android.content.Context
 import androidx.annotation.StringRes
@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.rifki.jetpackpro.mymoviesfinal.R
-import com.rifki.jetpackpro.mymoviesfinal.ui.movie.MovieFragment
-import com.rifki.jetpackpro.mymoviesfinal.ui.tvshow.TvShowFragment
+import com.rifki.jetpackpro.mymoviesfinal.ui.favorite.movie.FavoriteMovieFragment
+import com.rifki.jetpackpro.mymoviesfinal.ui.favorite.tvshow.FavoriteTvShowFragment
+
 
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
@@ -18,8 +19,8 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) : 
 
     override fun getItem(position: Int): Fragment =
         when (position) {
-            0 -> MovieFragment()
-            1 -> TvShowFragment()
+            0 -> FavoriteMovieFragment()
+            1 -> FavoriteTvShowFragment()
             else -> Fragment()
         }
 
