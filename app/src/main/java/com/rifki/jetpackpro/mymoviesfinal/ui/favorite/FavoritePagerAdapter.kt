@@ -4,13 +4,13 @@ import android.content.Context
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.rifki.jetpackpro.mymoviesfinal.R
 import com.rifki.jetpackpro.mymoviesfinal.ui.favorite.movie.FavoriteMovieFragment
 import com.rifki.jetpackpro.mymoviesfinal.ui.favorite.tvshow.FavoriteTvShowFragment
 
 
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class FavoritePagerAdapter(private val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
         @StringRes

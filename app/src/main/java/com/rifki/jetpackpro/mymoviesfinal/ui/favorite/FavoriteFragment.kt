@@ -20,8 +20,8 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), requireActivity().supportFragmentManager)
-        binding?.viewPager?.adapter = sectionsPagerAdapter
+        val favoritePagerAdapter = FavoritePagerAdapter(requireContext(), requireActivity().supportFragmentManager)
+        binding?.viewPager?.adapter = favoritePagerAdapter
         binding?.tabs?.setupWithViewPager(binding?.viewPager)
 
     }
