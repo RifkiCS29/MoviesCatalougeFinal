@@ -3,9 +3,11 @@ package com.rifki.jetpackpro.mymoviesfinal.ui.movie
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.rifki.jetpackpro.mymoviesfinal.data.MovieAppRepository
 import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.MovieEntity
-import com.rifki.jetpackpro.mymoviesfinal.utils.DataDummy
+import com.rifki.jetpackpro.mymoviesfinal.utils.SortUtils
+import com.rifki.jetpackpro.mymoviesfinal.vo.Resource
 import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
@@ -28,7 +30,10 @@ class MovieViewModelTest {
     private lateinit var movieAppRepository: MovieAppRepository
 
     @Mock
-    private lateinit var observer: Observer<List<MovieEntity>>
+    private lateinit var observer: Observer<Resource<PagedList<MovieEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<MovieEntity>
 
     @Before
     fun setup() {
@@ -37,17 +42,19 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
-        val dummyMovies = DataDummy.generateDummyMovies()
-        val movies = MutableLiveData<List<MovieEntity>>()
+        val dummyMovies = Resource.success(pagedList)
+        `when`(dummyMovies.data?.size).thenReturn(4)
+
+        val movies = MutableLiveData<Resource<PagedList<MovieEntity>>>()
         movies.value = dummyMovies
 
-        `when`(movieAppRepository.getMovies()).thenReturn(movies)
-        val movie = viewModel.getMovies().value
-        verify(movieAppRepository).getMovies()
+        `when`(movieAppRepository.getMovies(SortUtils.DEFAULT)).thenReturn(movies)
+        val movie = viewModel.getMovies(SortUtils.DEFAULT).value?.data
+        verify(movieAppRepository).getMovies(SortUtils.DEFAULT)
         assertNotNull(movie)
         assertEquals(4, movie?.size)
 
-        viewModel.getMovies().observeForever(observer)
+        viewModel.getMovies(SortUtils.DEFAULT).observeForever(observer)
         verify(observer).onChanged(dummyMovies)
     }
 }
