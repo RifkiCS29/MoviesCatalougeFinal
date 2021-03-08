@@ -51,6 +51,7 @@ class RemoteDataSource {
         client.enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
                 resultTvShows.value = ApiResponse.success(response.body()?.results as List<ResultsTvShowItem>)
+                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<TvShowResponse>, t: Throwable) {

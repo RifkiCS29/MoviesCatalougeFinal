@@ -73,7 +73,7 @@ object DataDummy {
                         "Documentary",
                         "Revisit the epic heroes, villains and moments from across the MCU in preparation for the stories still to come. Each dynamic segment feeds directly into the upcoming series — setting the stage for future events. This series weaves together the many threads that constitute the unparalleled Marvel Cinematic Universe.",
                         "2021-01-08",
-                        7.6,
+                        7.7,
                         "As the universe expands, explore the stories of those destined to become legends.",
                         false
                 ),
@@ -141,7 +141,7 @@ object DataDummy {
                 "Documentary",
                 "Revisit the epic heroes, villains and moments from across the MCU in preparation for the stories still to come. Each dynamic segment feeds directly into the upcoming series — setting the stage for future events. This series weaves together the many threads that constitute the unparalleled Marvel Cinematic Universe.",
                 "2021-01-08",
-                7.6,
+                7.7,
                 "As the universe expands, explore the stories of those destined to become legends.",
                 false
         )
@@ -266,7 +266,7 @@ object DataDummy {
                         "2021-01-08",
                         "Revisit the epic heroes, villains and moments from across the MCU in preparation for the stories still to come. Each dynamic segment feeds directly into the upcoming series — setting the stage for future events. This series weaves together the many threads that constitute the unparalleled Marvel Cinematic Universe.",
                         "/EpDuYIK81YtCUT3gH2JDpyj8Qk.jpg",
-                        7.6,
+                        7.7,
                         "Marvel Studios: Legends",
                         "As the universe expands, explore the stories of those destined to become legends."
                 ),
@@ -367,7 +367,7 @@ object DataDummy {
                 "2021-01-08",
                 "Revisit the epic heroes, villains and moments from across the MCU in preparation for the stories still to come. Each dynamic segment feeds directly into the upcoming series — setting the stage for future events. This series weaves together the many threads that constitute the unparalleled Marvel Cinematic Universe.",
                 "/EpDuYIK81YtCUT3gH2JDpyj8Qk.jpg",
-                7.6,
+                7.7,
                 "Marvel Studios: Legends",
                 "As the universe expands, explore the stories of those destined to become legends."
         )
