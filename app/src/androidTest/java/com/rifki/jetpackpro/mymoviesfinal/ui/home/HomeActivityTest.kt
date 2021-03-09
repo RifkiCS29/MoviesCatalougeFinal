@@ -9,6 +9,7 @@ import androidx.test.espresso.PerformException
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.swipeRight
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -137,7 +138,6 @@ class HomeActivityTest{
     fun test7LoadFavoriteTvShows() {
         onView(withId(R.id.navigation_favorites)).perform(click())
         onView(withId(R.id.tabs)).perform(selectTabAtPosition(1))
-        delay()
         onView(withId(R.id.rv_favorite_tv_shows)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_favorite_tv_shows)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShows.size))
     }
@@ -146,7 +146,7 @@ class HomeActivityTest{
     fun test8LoadDetailFavoriteTvShow() {
         onView(withId(R.id.navigation_favorites)).perform(click())
         onView(withId(R.id.tabs)).perform(selectTabAtPosition(1))
-        delay()
+        onView(withId(R.id.tabs)).perform(swipeRight())
         onView(withId(R.id.rv_favorite_tv_shows)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_favorite_tv_shows)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.image_poster)).check(matches(isDisplayed()))
@@ -181,14 +181,6 @@ class HomeActivityTest{
 
                 tabAtIndex.select()
             }
-        }
-    }
-
-    private fun delay() {
-        try {
-            Thread.sleep(1000)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
         }
     }
 
