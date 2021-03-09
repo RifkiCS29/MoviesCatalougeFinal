@@ -9,17 +9,16 @@ import androidx.test.espresso.PerformException
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.doubleClick
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.rifki.jetpackpro.mymoviesfinal.R
-import com.rifki.jetpackpro.mymoviesfinal.ui.splashscreen.SplashScreenActivity
 import com.rifki.jetpackpro.mymoviesfinal.utils.DataDummy
 import com.rifki.jetpackpro.mymoviesfinal.utils.EspressoIdlingResource
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.material.tabs.TabLayout
+import com.rifki.jetpackpro.mymoviesfinal.ui.splashscreen.SplashScreenActivity
 import com.rifki.jetpackpro.mymoviesfinal.utils.Convert
 import org.junit.After
 import org.junit.Before
@@ -47,6 +46,11 @@ class HomeActivityTest{
     @Test
     fun test1LoadMovies() {
         onView(withId(R.id.rv_movies)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyMovies.size))
+    }
+
+    @Test
+    fun test2LoadDetailMovie() {
         onView(withId(R.id.rv_movies)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.image_poster)).check(matches(isDisplayed()))
         onView(withId(R.id.image_backdrop)).check(matches(isDisplayed()))
@@ -68,8 +72,15 @@ class HomeActivityTest{
     }
 
     @Test
-    fun test2bLoadTvShows() {
-        onView(withId(R.id.navigation_tvShow)).check(matches(isDisplayed())).perform(click(), click())
+    fun test3LoadTvShows() {
+        onView(withId(R.id.navigation_tvShow)).perform(click())
+        onView(withId(R.id.rv_tv_shows)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_tv_shows)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShows.size))
+    }
+
+    @Test
+    fun test4LoadDetailTvShow() {
+        onView(withId(R.id.navigation_tvShow)).perform(click())
         onView(withId(R.id.rv_tv_shows)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_tv_shows)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.image_poster)).check(matches(isDisplayed()))
@@ -90,8 +101,15 @@ class HomeActivityTest{
     }
 
     @Test
-    fun test3LoadFavoriteMovies() {
-        onView(withId(R.id.navigation_tvShow)).perform(click(), click())
+    fun test5LoadFavoriteMovies() {
+        onView(withId(R.id.navigation_favorites)).perform(click())
+        onView(withId(R.id.tabs)).perform(selectTabAtPosition(0))
+        onView(withId(R.id.rv_favorite_movies)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_favorite_movies)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShows.size))
+    }
+
+    @Test
+    fun test6LoadDetailFavoriteMovie() {
         onView(withId(R.id.navigation_favorites)).perform(click())
         onView(withId(R.id.tabs)).perform(selectTabAtPosition(0))
         onView(withId(R.id.rv_favorite_movies)).check(matches(isDisplayed()))
@@ -116,10 +134,18 @@ class HomeActivityTest{
     }
 
     @Test
-    fun test4LoadFavoriteTvShows() {
-        onView(withId(R.id.navigation_tvShow)).perform(click(), click())
+    fun test7LoadFavoriteTvShows() {
         onView(withId(R.id.navigation_favorites)).perform(click())
         onView(withId(R.id.tabs)).perform(selectTabAtPosition(1))
+        onView(withId(R.id.rv_favorite_tv_shows)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_favorite_tv_shows)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShows.size))
+    }
+
+    @Test
+    fun test8LoadDetailFavoriteTvShow() {
+        onView(withId(R.id.navigation_favorites)).perform(click())
+        onView(withId(R.id.tabs)).perform(selectTabAtPosition(1))
+        delay()
         onView(withId(R.id.rv_favorite_tv_shows)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_favorite_tv_shows)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.image_poster)).check(matches(isDisplayed()))
@@ -154,6 +180,14 @@ class HomeActivityTest{
 
                 tabAtIndex.select()
             }
+        }
+    }
+
+    private fun delay() {
+        try {
+            Thread.sleep(1000)
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
         }
     }
 
