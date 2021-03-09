@@ -137,6 +137,7 @@ class HomeActivityTest{
     fun test7LoadFavoriteTvShows() {
         onView(withId(R.id.navigation_favorites)).perform(click())
         onView(withId(R.id.tabs)).perform(selectTabAtPosition(1))
+        delay()
         onView(withId(R.id.rv_favorite_tv_shows)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_favorite_tv_shows)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(dummyTvShows.size))
     }
