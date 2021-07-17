@@ -90,4 +90,7 @@ dependencies {
 
     //pagination
     implementation "androidx.paging:paging-runtime:$pagingVersion"
+
+    //lottie
+    implementation 'com.airbnb.android:lottie:3.4.0'
 }

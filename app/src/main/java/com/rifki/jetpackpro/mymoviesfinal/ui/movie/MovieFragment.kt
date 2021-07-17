@@ -18,7 +18,6 @@ import com.rifki.jetpackpro.mymoviesfinal.utils.SortUtils.DEFAULT
 import com.rifki.jetpackpro.mymoviesfinal.utils.SortUtils.WORST_RATING
 import com.rifki.jetpackpro.mymoviesfinal.viewmodel.ViewModelFactory
 import com.rifki.jetpackpro.mymoviesfinal.vo.Resource
-import com.rifki.jetpackpro.mymoviesfinal.vo.Status
 
 class MovieFragment : Fragment() {
 
@@ -52,14 +51,16 @@ class MovieFragment : Fragment() {
 
     private val movieObserver = Observer<Resource<PagedList<MovieEntity>>> { listMovies ->
         if (listMovies != null) {
-            when (listMovies.status) {
-                Status.LOADING -> showLoading(true)
-                Status.SUCCESS -> {
+            when (listMovies) {
+                is Resource.Loading -> showLoading(true)
+                is Resource.Success -> {
                     showLoading(false)
                     movieAdapter.submitList(listMovies.data)
                 }
-                Status.ERROR -> {
+                is Resource.Error -> {
                     showLoading(false)
+                    binding?.lottieMovie?.visibility = View.VISIBLE
+                    binding?.tvNoData?.visibility = View.VISIBLE
                     Toast.makeText(context, "Failed to get Data", Toast.LENGTH_SHORT).show()
                 }
             }

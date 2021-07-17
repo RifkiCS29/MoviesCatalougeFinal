@@ -25,4 +25,27 @@
             layout="@layout/content_detail_tv_show" />
     </androidx.core.widget.NestedScrollView>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_detail_tv_show"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        app:lottie_rawRes="@raw/error"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        android:visibility="invisible"
+        app:layout_anchor="@id/content_tv_show"
+        app:layout_anchorGravity="center_horizontal|center_vertical"/>
+
+    <TextView
+        android:id="@+id/tv_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_data"
+        android:textColor="@color/colorAccent"
+        app:layout_anchor="@id/lottie_detail_tv_show"
+        android:visibility="invisible"
+        android:layout_marginTop="8dp"
+        app:layout_anchorGravity="bottom|center_horizontal"
+        android:fontFamily="@font/montserrat_medium" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

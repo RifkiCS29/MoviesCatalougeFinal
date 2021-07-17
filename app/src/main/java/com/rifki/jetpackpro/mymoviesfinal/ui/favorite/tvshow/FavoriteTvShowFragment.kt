@@ -42,8 +42,14 @@ class FavoriteTvShowFragment : Fragment() {
 
             showLoading(true)
             viewModel.getFavoriteTvShows().observe(viewLifecycleOwner, { favoriteTvShows ->
-                showLoading(false)
-                favoriteTvShowAdapter.submitList(favoriteTvShows)
+                if (favoriteTvShows.isNotEmpty()) {
+                    showLoading(false)
+                    favoriteTvShowAdapter.submitList(favoriteTvShows)
+                } else {
+                    showLoading(false)
+                    binding?.rvFavoriteTvShows?.visibility = View.GONE
+                    binding?.lottieTvShow?.visibility = View.VISIBLE
+                }
             })
 
             showRecyclerView()

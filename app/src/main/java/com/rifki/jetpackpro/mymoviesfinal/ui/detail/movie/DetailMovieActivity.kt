@@ -14,7 +14,7 @@ import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.MovieEntity
 import com.rifki.jetpackpro.mymoviesfinal.databinding.ActivityDetailMovieBinding
 import com.rifki.jetpackpro.mymoviesfinal.utils.Convert
 import com.rifki.jetpackpro.mymoviesfinal.viewmodel.ViewModelFactory
-import com.rifki.jetpackpro.mymoviesfinal.vo.Status
+import com.rifki.jetpackpro.mymoviesfinal.vo.Resource
 import com.squareup.picasso.Picasso
 
 class DetailMovieActivity : AppCompatActivity() {
@@ -47,19 +47,21 @@ class DetailMovieActivity : AppCompatActivity() {
             if (movieId != null) {
                 viewModel.setSelectedMovie(movieId)
                 viewModel.detailMovie.observe(this, { movie ->
-                    when (movie.status) {
-                        Status.LOADING -> {
+                    when (movie) {
+                        is Resource.Loading -> {
                             detailMovieBinding?.progressBar?.visibility = View.VISIBLE
                             detailMovieBinding?.contentMovie?.visibility = View.INVISIBLE
                         }
-                        Status.SUCCESS -> if (movie.data != null) {
+                        is Resource.Success -> if (movie.data != null) {
                             detailMovieBinding?.progressBar?.visibility = View.GONE
                             detailMovieBinding?.contentMovie?.visibility = View.VISIBLE
                             populateMovie(movie.data)
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             detailMovieBinding?.progressBar?.visibility = View.INVISIBLE
                             detailMovieBinding?.contentMovie?.visibility = View.INVISIBLE
+                            detailMovieBinding?.lottieDetailMovie?.visibility = View.VISIBLE
+                            detailMovieBinding?.tvNoData?.visibility = View.VISIBLE
                             Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -106,18 +108,18 @@ class DetailMovieActivity : AppCompatActivity() {
         this.menu = menu
         viewModel.detailMovie.observe(this, { movie ->
             if (movie != null) {
-                when (movie.status) {
-                    Status.LOADING -> {
+                when (movie) {
+                    is Resource.Loading -> {
                         detailMovieBinding?.progressBar?.visibility = View.VISIBLE
                         detailMovieBinding?.contentMovie?.visibility = View.INVISIBLE
                     }
-                    Status.SUCCESS -> if (movie.data != null) {
+                    is Resource.Success -> if (movie.data != null) {
                         detailMovieBinding?.progressBar?.visibility = View.GONE
                         detailMovieBinding?.contentMovie?.visibility = View.VISIBLE
                         val state = movie.data.isFavorite
                         setFavoriteState(state)
                     }
-                    Status.ERROR -> {
+                    is Resource.Error -> {
                         detailMovieBinding?.progressBar?.visibility = View.INVISIBLE
                         detailMovieBinding?.contentMovie?.visibility = View.INVISIBLE
                         Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()

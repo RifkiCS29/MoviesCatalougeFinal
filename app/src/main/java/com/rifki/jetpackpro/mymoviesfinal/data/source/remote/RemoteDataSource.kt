@@ -31,12 +31,19 @@ class RemoteDataSource {
         val client = ApiConfig.getApiService().getMovies(BuildConfig.TMDB_API_KEY)
 
         client.enqueue(object : Callback<MovieResponse> {
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                resultMovies.value = ApiResponse.success(response.body()?.results as List<ResultsMovieItem>)
+            override fun onResponse(
+                call: Call<MovieResponse>,
+                response: Response<MovieResponse>)
+            {
+                val dataMovies = response.body()?.results
+                resultMovies.value =
+                    if (dataMovies != null) ApiResponse.Success(dataMovies)
+                    else ApiResponse.Empty
                 EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                resultMovies.value = ApiResponse.Error(t.message.toString())
                 Log.d(TAG, "onFailure :${t.message}" )
                 EspressoIdlingResource.decrement()
             }
@@ -47,14 +54,22 @@ class RemoteDataSource {
     fun getTvShows(): LiveData<ApiResponse<List<ResultsTvShowItem>>> {
         EspressoIdlingResource.increment()
         val resultTvShows = MutableLiveData<ApiResponse<List<ResultsTvShowItem>>>()
+
         val client = ApiConfig.getApiService().getTvShows(BuildConfig.TMDB_API_KEY)
         client.enqueue(object : Callback<TvShowResponse> {
-            override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
-                resultTvShows.value = ApiResponse.success(response.body()?.results as List<ResultsTvShowItem>)
+            override fun onResponse(
+                call: Call<TvShowResponse>,
+                response: Response<TvShowResponse>)
+            {
+                val dataTvShows = response.body()?.results
+                resultTvShows.value =
+                    if (dataTvShows != null) ApiResponse.Success(dataTvShows)
+                    else ApiResponse.Empty
                 EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<TvShowResponse>, t: Throwable) {
+                resultTvShows.value = ApiResponse.Error(t.message.toString())
                 Log.d(TAG, "onFailure :${t.message}" )
                 EspressoIdlingResource.decrement()
             }
@@ -66,13 +81,21 @@ class RemoteDataSource {
         EspressoIdlingResource.increment()
         val resultDetailMovie = MutableLiveData<ApiResponse<ResultsMovieItem>>()
         val client = ApiConfig.getApiService().getDetailMovie(movieId, BuildConfig.TMDB_API_KEY)
+
         client.enqueue(object : Callback<ResultsMovieItem> {
-            override fun onResponse(call: Call<ResultsMovieItem>, response: Response<ResultsMovieItem>) {
-                resultDetailMovie.value = ApiResponse.success(response.body() as ResultsMovieItem)
+            override fun onResponse(
+                call: Call<ResultsMovieItem>,
+                response: Response<ResultsMovieItem>)
+            {
+                val detailMovies = response.body()
+                resultDetailMovie.value =
+                    if (detailMovies != null) ApiResponse.Success(detailMovies)
+                    else ApiResponse.Empty
                 EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<ResultsMovieItem>, t: Throwable) {
+                resultDetailMovie.value = ApiResponse.Error(t.message.toString())
                 Log.d(TAG, "onFailure :${t.message}" )
                 EspressoIdlingResource.decrement()
             }
@@ -84,13 +107,21 @@ class RemoteDataSource {
         EspressoIdlingResource.increment()
         val resultDetailTvShow =  MutableLiveData<ApiResponse<ResultsTvShowItem>>()
         val client = ApiConfig.getApiService().getDetailTvShow(tvShowId, BuildConfig.TMDB_API_KEY)
+
         client.enqueue(object : Callback<ResultsTvShowItem> {
-            override fun onResponse(call: Call<ResultsTvShowItem>, response: Response<ResultsTvShowItem>) {
-                resultDetailTvShow.value = ApiResponse.success(response.body() as ResultsTvShowItem)
+            override fun onResponse(
+                call: Call<ResultsTvShowItem>,
+                response: Response<ResultsTvShowItem>)
+            {
+                val detailTvShow = response.body()
+                resultDetailTvShow.value =
+                    if (detailTvShow != null) ApiResponse.Success(detailTvShow)
+                    else ApiResponse.Empty
                 EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<ResultsTvShowItem>, t: Throwable) {
+                resultDetailTvShow.value = ApiResponse.Error(t.message.toString())
                 Log.d(TAG, "onFailure :${t.message}" )
                 EspressoIdlingResource.decrement()
             }

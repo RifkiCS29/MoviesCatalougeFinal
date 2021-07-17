@@ -41,8 +41,14 @@ class FavoriteMovieFragment : Fragment() {
 
             showLoading(true)
             viewModel.getFavoriteMovies().observe(viewLifecycleOwner, { favoriteMovies ->
-                showLoading(false)
-                favoriteMovieAdapter.submitList(favoriteMovies)
+                if (favoriteMovies.isNotEmpty()) {
+                    showLoading(false)
+                    favoriteMovieAdapter.submitList(favoriteMovies)
+                } else {
+                    showLoading(false)
+                    binding?.rvFavoriteMovies?.visibility = View.GONE
+                    binding?.lottieMovie?.visibility = View.VISIBLE
+                }
             })
 
             showRecyclerView()

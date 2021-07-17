@@ -14,7 +14,7 @@ import com.rifki.jetpackpro.mymoviesfinal.data.source.local.entity.TvShowEntity
 import com.rifki.jetpackpro.mymoviesfinal.databinding.ActivityDetailTvShowBinding
 import com.rifki.jetpackpro.mymoviesfinal.utils.Convert
 import com.rifki.jetpackpro.mymoviesfinal.viewmodel.ViewModelFactory
-import com.rifki.jetpackpro.mymoviesfinal.vo.Status
+import com.rifki.jetpackpro.mymoviesfinal.vo.Resource
 import com.squareup.picasso.Picasso
 
 class DetailTvShowActivity : AppCompatActivity() {
@@ -49,19 +49,21 @@ class DetailTvShowActivity : AppCompatActivity() {
                 detailTvShowBinding?.contentTvShow?.visibility = View.INVISIBLE
                 viewModel.setSelectedTvShow(tvShowId)
                 viewModel.detailTvShow.observe(this, { tvShow ->
-                    when (tvShow.status) {
-                        Status.LOADING -> {
+                    when (tvShow) {
+                        is Resource.Loading -> {
                             detailTvShowBinding?.progressBar?.visibility = View.VISIBLE
                             detailTvShowBinding?.contentTvShow?.visibility = View.INVISIBLE
                         }
-                        Status.SUCCESS -> if (tvShow.data != null) {
+                        is Resource.Success -> if (tvShow.data != null) {
                             detailTvShowBinding?.progressBar?.visibility = View.GONE
                             detailTvShowBinding?.contentTvShow?.visibility = View.VISIBLE
                             populateTvShow(tvShow.data)
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             detailTvShowBinding?.progressBar?.visibility = View.INVISIBLE
                             detailTvShowBinding?.contentTvShow?.visibility = View.INVISIBLE
+                            detailTvShowBinding?.lottieDetailTvShow?.visibility = View.VISIBLE
+                            detailTvShowBinding?.tvNoData?.visibility = View.VISIBLE
                             Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -105,18 +107,18 @@ class DetailTvShowActivity : AppCompatActivity() {
         this.menu = menu
         viewModel.detailTvShow.observe(this, { tvShow ->
             if (tvShow != null) {
-                when (tvShow.status) {
-                    Status.LOADING -> {
+                when (tvShow) {
+                    is Resource.Loading -> {
                         detailTvShowBinding?.progressBar?.visibility = View.VISIBLE
                         detailTvShowBinding?.contentTvShow?.visibility = View.INVISIBLE
                     }
-                    Status.SUCCESS -> if (tvShow.data != null) {
+                    is Resource.Success -> if (tvShow.data != null) {
                         detailTvShowBinding?.progressBar?.visibility = View.GONE
                         detailTvShowBinding?.contentTvShow?.visibility = View.VISIBLE
                         val state = tvShow.data.isFavorite
                         setFavoriteState(state)
                     }
-                    Status.ERROR -> {
+                    is Resource.Error -> {
                         detailTvShowBinding?.progressBar?.visibility = View.INVISIBLE
                         detailTvShowBinding?.contentTvShow?.visibility = View.INVISIBLE
                         Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
